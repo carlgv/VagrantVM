@@ -44,20 +44,13 @@ $ vagrant up
 It takes up to 15 minutes, and you will see on VirtualBox this:
 
 ![](https://github.com/carlgv/VagrantVM/blob/master/Images/virtualbox1.png)
- 
-5. Shut down the VM and go to properties (right click on the VM)
- 
-![](https://github.com/carlgv/VagrantVM/blob/master/Images/virtualbox2.png)
 
-6. Configure the VM with at least 2Gb of RAM and 2 processors
- 
-![](https://github.com/carlgv/VagrantVM/blob/master/Images/virtualbox3.png)
 
-7. And run again the VM
+6. If GUI doesn't start automatically, shut down and run again the VM
 
-8. The default user/password are: vagrant/vagrant
+7. The default user/password are: vagrant/vagrant
  
-9. You can see that VSCode is running and the version of Docker and .Net Core installed
+8. You can see that VSCode is running and the version of Docker and .Net Core installed
 
 
 
