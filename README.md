@@ -35,7 +35,7 @@ This is my bcdedit config:
 
 [BOOTSTRAP.SH](https://github.com/carlgv/VagrantVM/blob/master/bootstrap.sh)
  
-3. You can clone this repository or create your own files and put this two files in a folder, wherever you want.
+3. You can clone this repository (*important: donwload the vagrantfile and the bootstrap.sh file*) or create your own files and put this two files in a folder, wherever you want.
 
 4. On PowerShell or CMD as elevated, run:
 ```
