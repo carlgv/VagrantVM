@@ -45,6 +45,7 @@ It takes up to 15 minutes, and you will see on VirtualBox this:
 
 
 6. If GUI doesn't start automatically, shut down and run again the VM
+
  *automatically reboots machine in this release*
 
 7. The default user/password are: vagrant/vagrant
