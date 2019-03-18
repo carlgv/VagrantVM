@@ -29,11 +29,9 @@ This is my bcdedit config:
  
  ![](https://github.com/carlgv/VagrantVM/blob/master/Images/1.png)
  	
-2. In the VagrantFile, I’m provisioning a base Ubuntu Server v14 LTS with all the components from the vagrant file and a .sh script for some resources.
+2. In the VagrantFile, I’m provisioning a base Ubuntu Server v16 LTS with all the components from the vagrant file and a .sh script for some resources.
  
 [VAGRANTFILE](https://github.com/carlgv/VagrantVM/blob/master/Vagrantfile)
-
-[BOOTSTRAP.SH](https://github.com/carlgv/VagrantVM/blob/master/bootstrap.sh)
  
 3. You can clone this repository (*important: donwload the vagrantfile and the bootstrap.sh file*) or create your own files and put this two files in a folder, wherever you want.
 
@@ -47,22 +45,8 @@ It takes up to 15 minutes, and you will see on VirtualBox this:
 
 
 6. If GUI doesn't start automatically, shut down and run again the VM
+ *automatically reboots machine in this release*
 
 7. The default user/password are: vagrant/vagrant
  
 8. You can see that VSCode is running and the version of Docker and .Net Core installed
-
-
-
-#
-#
-#####Of course, other option, is configure a vagrant file with my box to download. Create a vagrantfile and paste this code:
-
-```Ruby
-Vagrant.configure("2") do |config|
-  config.vm.box = "carlgv/ubuntudocker"
-  config.vm.box_version = "1.0.0"
-end
-```
-
-
