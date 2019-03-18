@@ -1,98 +1,40 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
-# All Vagrant configuration is done below. The "2" in Vagrant.configure
-# configures the configuration version (we support older styles for
-# backwards compatibility). Please don't change it unless you know what
-# you're doing.
 Vagrant.configure("2") do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
-
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "ubuntu/trusty64"
-
-  # Disable automatic box update checking. If you disable this, then
-  # boxes will only be checked for updates when the user runs
-  # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
-
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # NOTE: This will enable public access to the opened port
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
-
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine and only allow access
-  # via 127.0.0.1 to disable public access
-  # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
-
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  # config.vm.network "private_network", ip: "192.168.33.10"
-
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  config.vm.network "public_network"
-
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
-
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
+  config.vm.box = "ubuntu/xenial64"
   config.vm.provider "virtualbox" do |vb|
-    # Customize the amount of memory on the VM:
-     vb.memory = "2048"
+     vb.memory = "3072"
+     vb.cpus = "2"
   end
-  #
-  # View the documentation for the provider you are using for more
-  # information on available options.
-
-  # Enable provisioning with a shell script. Additional provisioners such as
-  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
-  # documentation for more information about their specific syntax and use.
    config.vm.provision "shell", inline: <<-SHELL
    sudo su
-      # Install desktop on Ubuntu server 14
-      apt-get clean
-      apt-get update
-      apt-get -y ubuntu-desktop
-
-      # # Installing Docker CE
-      # sudo apt-get update
-      # sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-      # curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -  
-      # sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu$(lsb_release -cs)stable"
-      # sudo apt-get update
-      # sudo apt-get -y install docker-ce docker-ce-cli containerd.io
-
-      # Installing VSCode
       curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
       sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
       sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-
       sudo apt-get -y install apt-transport-https
       sudo apt-get update
       sudo apt-get -y install code-insiders
 
-      # Installing .Net Core SDK
-      wget -q https://packages.microsoft.com/config/ubuntu/14.04/packages-microsoft-prod.deb
-      sudo dpkg -i packages-microsoft-prod.deb
-      sudo apt-get -y install apt-transport-https
+      curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+      sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+      sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-xenial-prod xenial main" > /etc/apt/sources.list.d/dotnetdev.list'
       sudo apt-get update
       sudo apt-get -y install dotnet-sdk-2.2
 
+      sudo su
+      apt-get clean
+      apt-get update
+      sudo apt-get -y install ubuntu-desktop
+      # wget -qO- https://get.docker.com/ | sh
+      # sudo usermod -aG docker $(whoami)
+      apt-get update
+      apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+      echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list
+      apt-get update
+      apt-cache policy docker-engine
+      apt-get install -y docker-engine
+      systemctl status docker
+
+
+      # startx
+      reboot
    SHELL
-
-   config.vm.provision :shell, :path => "bootstrap.sh"
-
 end
